@@ -35,7 +35,11 @@
 - The company was an agency of the DMG company from Germany in Iran that imported the next generation of CNC machines from DMG Germany; I was working as an electronic engineer focused on control systems.
 
 **Electronic Engineer @ ALMASE SAZ CO. (_2002 - 2003)**
-- To Maintenance and repair system controllers/drivers such as Siemens, HEIDENHAIN, Deckle, and ABB used in CNC machines.  
+- To Maintenance and repair system controllers/drivers such as Siemens, HEIDENHAIN, Deckle, and ABB used in CNC machines.
+
+## Online Certificate
+ - Deep Learning Nanodegree Udacity (2021)
+ - NLP Nanodegree Udacity (2021)
 
 ## Projects
 ### Multilevel optimization algorithm for Inverse Problem in Electrocardiography
