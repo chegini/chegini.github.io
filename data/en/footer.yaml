@@ -1,0 +1,24 @@
+logo_image:
+menuitems:
+  - title: Research & Projects
+    link: /research/
+  - title: Publications
+    link: /publications/
+  - title: Talks
+    link: /talks/
+  - title: Contact
+    link: /contact/
+socials:
+  - title: ZIB profile
+    link: https://www.zib.de/members/chegini
+    logo_image: /img/world.svg
+  - title: LinkedIn
+    link: https://www.linkedin.com/in/fatemeh-chegini-salzmann-ab7aba44/
+    logo_image: /img/linkedin.svg
+  # - title: openCARP Git
+  #   link: https://git.opencarp.org/fatemeh
+  #   logo_image: /img/world.svg
+  # - title: Google Scholar
+  #   link: https://scholar.google.com/citations?user=v1laLgMAAAAJ&hl=en
+  #   logo_image: /img/world.svg
+footer_text: "Fatemeh Chegini · Scientific Computing and High-Performance Computing · Berlin"

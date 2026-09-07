@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="{{ .Language.Lang }}">
+  <head>
+    <title>{{ if .Params.seo.title }}{{ .Params.seo.title }}{{ else }}{{ .Title }} | {{ (index site.Data .Language.Lang).general.title }} {{ (index site.Data .Language.Lang).header.logo_subtitle }}{{ end }}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ if .Params.seo.description }}{{ .Params.seo.description }}{{ else }}{{ .Summary }}{{ end }}">
+
+    <link rel="canonical" href="{{ .Permalink }}" />
+    {{ $favicon := resources.Get site.Data.settings.favicon.asset }}
+    {{ if site.Data.settings.favicon.asset }}{{ $resized := $favicon.Resize "96x96" | resources.Copy "favicon-96x96.png" }}<link rel="icon" type="image/png" href="{{ $resized.RelPermalink }}" sizes="96x96" />{{ end }}
+    {{ if site.Data.settings.favicon.svg_image }}<link rel="icon" type="image/svg+xml" href="{{ site.Data.settings.favicon.svg_image }}" />{{ end }}
+    {{ if site.Data.settings.favicon.ico_image }}<link rel="shortcut icon" href="{{ site.Data.settings.favicon.ico_image }}" />{{ else }}<link rel="shortcut icon" href="{{ site.Data.settings.favicon_image }}">{{ end }}
+    {{ if site.Data.settings.favicon.asset }}{{ $resized := $favicon.Resize "180x180" | resources.Copy "apple-touch-icon.png" }}<link rel="apple-touch-icon" sizes="180x180" href="{{ $resized.RelPermalink }}" />{{ end }}
+    {{ if site.Data.settings.favicon.apple_mobile_web_app_title }}<meta name="apple-mobile-web-app-title" content="{{ site.Data.settings.favicon.apple_mobile_web_app_title }}" />{{ end }}
+    {{ if site.Data.settings.favicon.site_webmanifest }}{{ $bc := resources.Get "site.webmanifest" | resources.ExecuteAsTemplate "site.webmanifest" . }}<link rel="manifest" href="{{ $bc.RelPermalink }}" />{{ end }}
+    
+    {{- $color := "style" -}}
+    {{- if .Params.color_name -}}{{- $color = .Params.color_name -}}{{- end -}}
+    {{- if site.Data.settings.color_name -}}{{- $color = site.Data.settings.color_name -}}{{- end -}}
+    {{ with (resources.Get (printf `/css/%s.css` $color)) }}
+      {{ $fingerprinted := . | resources.Fingerprint "md5" }}
+      <link href="{{ $fingerprinted.RelPermalink }}" rel="stylesheet">
+    {{ end }}
+
+    {{ partial "header.html" . }}
+  </head>
+  <body id="top" class="{{ if in (substr .Content  0 100) `transparent_header` }}transparent_header{{ end }} filename_{{ with .File }}{{ .BaseFileName }}{{ end }}">
+    <script>      
+      function updateSize() {
+        if(window.innerWidth<{{ (index site.Data .Language.Lang).header.mobile_view_width }}) document.body.classList.add('mobilemenu');
+        else document.body.classList.remove('mobilemenu');
+      }
+      updateSize();
+      window.addEventListener("resize", updateSize);
+    </script>
+    <div class="innerbody">
+    {{- if site.Data.settings.preheader.active -}}
+    <div class="preheader {{ if .Params.preheader_is_light }}light{{ else }}{{ if and (ne .Params.preheader_is_light false) site.Data.settings.preheader.is_light }}light{{ end }}{{ end }}">
+      <div class="container">
+        <div class="icons">
+          {{- if (index site.Data .Language.Lang).general.contact.phone -}}
+            <a href="tel:{{ replace (index site.Data .Language.Lang).general.contact.phone ` ` `` }}" class="icon"><img src="/img/phone.svg" alt="Phone icon" class="black_2_textMedium" /> {{ (index site.Data .Language.Lang).general.contact.phone }}</a>
+          {{- end -}}
+          {{- if (index site.Data .Language.Lang).general.contact.email -}}
+            <a href="mailto:{{ (index site.Data .Language.Lang).general.contact.email }}" class="icon"><img src="/img/email.svg" alt="Email icon" class="black_2_textMedium" /> {{ (index site.Data .Language.Lang).general.contact.email }}</a>
+          {{- end -}}
+        </div>
+        <div>
+          {{- if (index site.Data .Language.Lang).header.preheader -}}{{ (index site.Data .Language.Lang).header.preheader }}{{- end -}}
+        </div>
+      </div>  
+    </div>
+    {{- end -}}
+    <header class="{{ if .Params.dark_header }}dark{{ else }}{{ if and (ne .Params.dark_header false) site.Data.settings.dark_header }}dark{{ end }}{{ end }}">
+      <div class="container {{ if (index site.Data .Language.Lang).header.cta.active }}has_cta{{ end }}" onclick="document.body.classList.remove('menushown');">
+        <div>
+          {{ partial "logo.html" . }}
+        </div>
+        <div class="nav">
+          <nav class="navnav">
+            <ul>
+              {{ range (index site.Data .Language.Lang).header.menuitems }}
+                <li class="{{ if eq .link `/` }}{{ if eq $.RelPermalink `/` }}active{{ end }}{{ else }}{{ if (hasPrefix $.RelPermalink .link) }}active{{ end }}{{ end }}{{ if (index .items 0).title }} haschildren{{ end }}"><a href="{{ .link }}"{{ if eq .title "CV" }} download="Fatemeh-Chegini-CV.pdf"{{ end }} onclick="navClick(event, this);">{{ .title }}</a>
+                  {{ if (index .items 0).title }}
+                  <ul>
+                    {{ range .items }}
+                      <li class="{{ if hasPrefix $.Page.RelPermalink .link }}active{{ end }}"><a href="{{ .link }}">{{ .title }}</a></li>
+                    {{ end }}
+                  </ul>
+                  {{ end }}
+                </li>
+              {{ end }}
+            </ul>
+          </nav>
+        </div>
+        <div>
+		      {{- if site.Data.settings.enable_webshop -}}
+            {{- if (index site.Data .Language.Lang).webshop.show_cart_icon -}}
+            <a href="{{ (index site.Data .Language.Lang).webshop.cart_link }}">
+              <img src="/img/shopping-cart.svg" alt="Shopping cart icon" class="black_2_textDark" />
+              <span class="itemcount">0</span>
+            </a>
+            {{- end -}}
+          {{- end -}}
+          {{ if site.Data.settings.enable_search }}
+          <a href="/search">
+            <img src="/img/search.svg" alt="Search icon" class="black_2_textDark" />
+          </a>
+          {{- end -}}
+          {{- if gt (len site.Sites) 1 -}}
+          {{- $translations := dict -}}
+          {{- range .Translations -}}{{- $translations = merge $translations (dict .Language.Lang .RelPermalink) -}}{{- end -}}
+          <div class="navnav languages">
+            <ul>
+              <li class="haschildren">
+                <a href="{{ .RelPermalink }}">{{ if .Site.Language.Params.flag }}{{ .Site.Language.Params.flag }} {{ end }}{{ .Site.Language.LanguageName | default (.Site.Language.Lang | upper) }}</a>
+                <ul>
+					{{ range site.Sites }}
+                    {{ if ne .Language.Lang $.Site.Language.Lang }}{{ $url := printf "/%s/" .Language.Lang }}{{ with index $translations .Language.Lang }}{{ $url = . }}{{ end }}<li><a href="{{ $url }}">{{ if .Params.flag }}{{ .Params.flag }} {{ end }}{{ .Language.LanguageName }}</a></li>{{ end }}
+					{{ end }}
+                </ul>
+              </li>
+            </ul>
+          </div>
+          {{- end -}}
+          {{ if (index site.Data .Language.Lang).header.cta.active }}
+          <a href="{{ (index site.Data .Language.Lang).header.cta.link }}" class="button smaller">{{ (index site.Data .Language.Lang).header.cta.title }}</a>
+		      {{ end }}
+        </div>
+        <button id="togglemenu" onclick="event.stopPropagation(); document.body.classList.add('menushown');"><span class="black_2_textDark">Toggle menu</span></button>
+        <script>
+          function navClick(event,el) {
+            var li = el.parentElement;
+            if(document.body.classList.contains('mobilemenu')) {
+              if (li.classList.contains('haschildren')) {
+                var ul = li.querySelector('ul');
+                if(ul) {
+                  if(window.getComputedStyle(ul).maxHeight == '0px') {
+                    var uls = document.querySelectorAll('nav ul ul');
+                    uls.forEach(function(u) {
+                      u.style.height = '0px';
+                      u.style.maxHeight = '0px';
+                    });
+                    ul.style.height = 'auto';
+                    ul.style.maxHeight = '700px';
+                    event.preventDefault();
+                    event.stopPropagation();
+                  }
+                }
+              }
+            }
+          }
+        </script>
+    </header>
+
+    {{- block "content" . -}}{{- end -}}
+
+    <footer class="{{ if .Params.dark_footer }}dark{{ else }}{{ if and (ne .Params.dark_footer false) site.Data.settings.dark_footer }}dark{{ end }}{{ end }}">
+      <div>
+        <div class="container">
+          <div>
+            {{ partial "footerlogo.html" . }}
+          </div>
+          <div>
+            <ul>
+              {{ range (index site.Data .Language.Lang).footer.menuitems }}
+                <li><a href="{{ .link }}"{{ if eq .title "CV" }} download="Fatemeh-Chegini-CV.pdf"{{ end }}>{{ .title }}</a></li>
+              {{ end }}
+            </ul>  
+          </div>
+          <div>
+            {{ partial "socialbuttons.html" . }}
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="container">
+		      <div>{{ markdownify (index site.Data .Language.Lang).footer.footer_text }}</div>
+          {{- if gt (len site.Sites) 1 -}}
+          {{- $translations := dict -}}
+          {{- range .Translations -}}{{- $translations = merge $translations (dict .Language.Lang .RelPermalink) -}}{{- end -}}
+          <div>
+            <select aria-label="Change language" onchange="if(this.value) document.location.href = this.value;"><option>Change language</option>{{ range site.Sites }}{{ $url := printf "/%s/" .Language.Lang }}{{ with index $translations .Language.Lang }}{{ $url = . }}{{ end }}<option value="{{ $url }}" {{ if eq page.Language.Lang .Language.Lang }}disabled{{ end }}>{{ if .Language.Params.flag }}{{ .Language.Params.flag }} {{ end }}{{ .Language.LanguageName }}</option>{{ end }}</select></div>
+          </div>
+          {{- end -}}
+		    </div>
+  		</div>
+		</footer>
+
+		{{ if site.Data.settings.sticky_header }}
+      <script type="text/javascript" src="/js/stickyheader.js"></script>
+    {{ end }}
+    <script type="text/javascript" src="/js/faq.js"></script>
+    <script type="text/javascript" src="/js/lightbox.js"></script>
+		<link rel="stylesheet" href="/css/lightbox.css">
+    {{ if site.Data.settings.customcursor }}
+      <script type="text/javascript" src="/js/customcursor.js"></script>
+      <link rel="stylesheet" href="/css/customcursor.css">
+    {{ end }}
+    {{ if site.Data.settings.intersectionobserver }}
+      <script type="text/javascript" src="/js/intersectionobserver.js"></script>
+      <link rel="stylesheet" href="/css/intersectionobserver.css">
+    {{ end }}
+    {{- if site.Data.settings.enable_webshop -}}
+      {{- if (index site.Data .Language.Lang).webshop.show_cart_icon -}}
+      <script type="text/javascript" src="/js/webshop.js"></script>
+      <script type="text/javascript">
+        updateCartCount();
+        populateCart();
+      </script>
+      {{- end -}}
+    {{- end -}}
+    {{ partial "page-end.html" . }}
+
+
+      </div>
+  <script>
+    if (window.location !== window.parent.location) {
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = 'https://cms.usecue.com/js/monitoriframe.js';
+        document.body.append(script);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+logo_image:
+logo_subtitle: Scientific Computing and HPC
+dark_header: false
+mobile_view_width: 1100
+menuitems:
+  - title: Home
+    link: /
+  - title: Research & Projects
+    link: /research/
+  - title: Publications
+    link: /publications/
+  - title: Talks
+    link: /talks/
+cta:
+  active: true
+  title: Contact
+  link: /contact/
+preheader: Postdoctoral researcher at Zuse Institute Berlin

@@ -1,0 +1,25 @@
+favicon_image: /uploads/photos/myphoto.png
+favicon:
+  asset: /uploads/photos/myphoto.png
+  svg_image:
+  ico_image:
+  apple_mobile_web_app_title: Fatemeh Chegini
+  site_webmanifest:
+    name: Fatemeh Chegini
+    shortname: F. Chegini
+    theme_color: "#000000"
+    background_color: "#000000"
+color_name:
+sticky_header: true
+dark_header: false
+dark_footer: true
+customcursor: false
+intersectionobserver: true
+filter_has_numbers: true
+page_size: 3
+show_all_services: true
+preheader: 
+  active: false
+  is_light: true
+enable_search: false
+enable_webshop: false

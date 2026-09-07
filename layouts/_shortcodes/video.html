@@ -1,0 +1,36 @@
+{{- $src := "" -}}
+{{- $caption := "" -}}
+{{- $poster := "" -}}
+{{- $class := "" -}}
+{{- $preload := "" -}}
+{{- $autoplay := "false" -}}
+{{- $loop := "false" -}}
+{{- $muted := "false" -}}
+{{- $controls := "true" -}}
+{{- if .IsNamedParams }}
+    {{- $src = .Get "src" -}}
+    {{- $caption = .Get "caption" -}}
+    {{- $poster = .Get "poster" -}}
+    {{- $class = .Get "class" -}}
+    {{- $preload = .Get "preload" | default "metadata" -}}
+    {{- $autoplay = .Get "autoplay" | default "false" -}}
+    {{- $loop = .Get "loop" | default "false" -}}
+    {{- $muted = .Get "muted" | default "false" -}}
+    {{- $controls = .Get "controls" | default "true" -}}
+{{- else }}
+    {{- $src = .Get 0 -}}
+    {{- $caption = .Get 1 -}}
+    {{- $poster = .Get 2 -}}
+    {{- $class = .Get 3 -}}
+    {{- $preload = .Get 4 | default "metadata" -}}
+{{- end }}
+<figure {{ with $class }}class="{{ . }}"{{ end }}>
+  <video playsinline class="player" preload="{{ $preload }}"{{ if eq $autoplay "true" }} autoplay{{ end }}{{ if eq $loop "true" }} loop{{ end }}{{ if eq $muted "true" }} muted{{ end }}{{ if ne $controls "false" }} controls{{ end }}{{ with $poster }} poster="{{ . | relURL }}"{{ end }}>
+    {{ with $src }}<source src="{{ . | relURL }}" type="video/mp4">{{ end }}
+    <p>
+      Your browser does not support HTML5 video.
+      {{ with $src }}Here is <a href="{{ . | relURL }}">a link to download the video</a>.{{ end }}
+    </p>
+  </video>
+  {{ with $caption }}<figcaption>{{ . }}</figcaption>{{ end }}
+</figure>
