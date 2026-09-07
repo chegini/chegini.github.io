@@ -1,12 +1,12 @@
 ---
 title: Home
 seo:
-  title: Fatemeh Chegini | Scientific Computing and HPC
-  description: Personal academic website of Fatemeh Chegini, postdoctoral researcher in scientific computing, HPC, numerical methods, and cardiac electrophysiology.
+  title: Fatemeh Chegini, PhD | Scientific Computing and HPC
+  description: Personal academic website of Fatemeh Chegini, PhD, postdoctoral researcher in scientific computing, HPC, numerical methods, and cardiac electrophysiology.
 ---
 {{< brick_intro >}}
 
-# Fatemeh Chegini
+# Fatemeh Chegini, PhD
 
 ## Scientific Computing and HPC for Cardiac Electrophysiology
 
@@ -45,7 +45,7 @@ I develop scalable numerical methods and scientific software for cardiac electro
   <a href="https://www.linkedin.com/in/fatemeh-chegini-salzmann-ab7aba44/" aria-label="LinkedIn"><img src="/img/linkedin.svg" alt=""></a>
 </div>
 
-![Fatemeh Chegini](/uploads/photos/myphoto.png)
+![Fatemeh Chegini, PhD](/uploads/photos/myphoto.png)
 
 {{< /brick_intro >}}
 
