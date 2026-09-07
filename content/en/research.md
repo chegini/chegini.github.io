@@ -9,7 +9,7 @@ seo:
 ---
 {{< brick_wide >}}
 
-## Scalable mathematics for the cardiac cell
+## Research themes
 
 I develop numerical methods and scientific software for cardiac electrophysiology. My research addresses a central computational challenge: how to resolve the electrical behavior of individual cardiac cells while retaining the scale, robustness, and reproducibility required for large simulations.
 
