@@ -9,7 +9,7 @@ seo:
 ---
 {{< brick_wide >}}
 
-## Research themes
+## Toward Efficient and Accurate EMI Simulation in a Distributed-Memory Framework
 
 I develop numerical methods and scientific software for cardiac electrophysiology. My research addresses a central computational challenge: how to resolve the electrical behavior of individual cardiac cells while retaining the scale, robustness, and reproducibility required for large simulations.
 
