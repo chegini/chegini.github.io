@@ -332,6 +332,8 @@ body.filename__index section.features > .container.small {
     border: 1px solid var(--borderLight);
     border-radius: 8px;
     font-size: 1.04rem;
+    padding: 1.45rem 1.35rem 1.55rem;
+    box-sizing: border-box;
 }
 
 .features ul.grid.features > li h3 {
