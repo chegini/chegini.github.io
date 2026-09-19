@@ -22,7 +22,7 @@ Postdoctoral researcher at the **Zuse Institute Berlin (ZIB)** working in scient
 **Email:** [chegini@zib.de](mailto:chegini@zib.de)  
 **Languages:** Persian, English, German (B1)
 
-![Fatemeh Chegini](/uploads/cv/profile.jpeg)
+![Fatemeh Chegini](/uploads/photos/myphoto.png)
 
 {{< /brick_image >}}
 
