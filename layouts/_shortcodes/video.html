@@ -32,5 +32,5 @@
       {{ with $src }}Here is <a href="{{ . | relURL }}">a link to download the video</a>.{{ end }}
     </p>
   </video>
-  {{ with $caption }}<figcaption>{{ . }}</figcaption>{{ end }}
+  {{ with $caption }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
 </figure>
